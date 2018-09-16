@@ -35,5 +35,11 @@ rl.on('close', () => { // 全ての行を読み込み終わった際に呼び出
   for (let [key, value] of prefectureDataMap) {
     value.change = value.popu15 / value.popu10;
   }
-  console.log(prefectureDataMap);
+  const rankingArray = Array.from(prefectureDataMap).sort((pair1, pair2) => { // 連想配列を普通の配列に変換
+    return pair2[1].change - pair1[1].change;
+  });
+  const rankingStrings = rankingArray.map(([key, value]) => {
+    return key + ':' + value.popu10 + '=>' + value.popu15 + ' 変化率:' + value.change;
+  });
+  console.log(rankingStrings);
 });
